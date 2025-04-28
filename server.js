@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 app.get('/button', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'button.html'));
 });
+
 // Function to get database entries
 async function getDatabase() {
   try {
