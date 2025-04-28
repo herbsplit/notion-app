@@ -9,10 +9,8 @@
     <button id="dbButton">Get DB info</button>
     <!-- <pre id="dbOutput"></pre> -->
     <table id="dataTable">
-        <thead>
-          <tr>
-            <th>Order Status</th>
-          </tr>
+        <thead id="tableHead">
+          <!-- headers will be inserted here-->
         </thead>
         <tbody id="tableBody">
           <!-- Data will be inserted here -->
@@ -20,19 +18,7 @@
       </table>
 
 
-<script src="script.js" type="module">
-    document.getElementById('dbButton').addEventListener('click', async () => {
-        try {
-            const res = await fetch('api/data');
-            const data = await res.json();
-            document.getElementById('dbOutput').textContent = JSON.stringify(data, null, 2);
-        } catch (err) {
-            document.getElementById('dbOutput').textContent = 'Error fetching data';
-            consol.error(err);
-        }
-    }
-);
-</script>
+<script src="script.js" type="module"></script>
 
 </body>
 </html>

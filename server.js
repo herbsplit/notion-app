@@ -33,10 +33,10 @@ async function getDatabase() {
   try {
     const response = await notion.databases.query({
       database_id: process.env.NOTION_DATABASE_ID, 
-      page_size: 6,
+      page_size: 10,
     });
     const results = response.results.map((page) => {
-      return page.properties["Order Status"]?.select?.name || "No Status";
+      return page.properties["Fulfillment Status"]?.select?.name || "No Status";
     });
     
     return results;
@@ -49,6 +49,32 @@ async function getDatabase() {
 app.get('/api/data', async (req, res) => {
   try{
     const data = await getDatabase();
+    res.json(data)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
+// GET headers
+
+async function getHeaders() {
+  try {
+      const databaseId = process.env.NOTION_DATABASE_ID;
+      const response = await notion.databases.retrieve({ database_id: databaseId });
+
+      headings = Object.keys(response.properties)
+
+      // console.log(headings);      
+      return headings;
+  } catch (error) {
+    console.error("Error fetching database:", error);
+  }
+}
+
+app.get('/api/headers', async (req, res) => {
+  try{
+    const data = await getHeaders();
     res.json(data)
   } catch (error) {
     console.error(error);
