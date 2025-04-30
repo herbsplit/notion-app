@@ -17,6 +17,7 @@ It will display a table of the information from the Notion database that is chos
 
 ## **Run Server**
 `node server.js`
+
 Should see `Example app listening on port 51000`
 
 ## **Press the button**
