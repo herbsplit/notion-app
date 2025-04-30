@@ -1,9 +1,10 @@
 document.getElementById('dbButton').addEventListener('click', async () => {
 try {
-    const res1 = await fetch('/api/data');
-    const data = await res1.json();
-    const res2 = await fetch('api/headers');
-    const head = await res2.json();
+    const res = await fetch('/api/data');
+    const data = await res.json()
+
+
+    console.log(data.results);
 
     const tableBody = document.getElementById('tableBody');
     const tableHead = document.getElementById('tableHead')
@@ -13,20 +14,23 @@ try {
 
     const headerRow = document.createElement('tr');
 
-    head.forEach((h) => {
+    data.headings.forEach((h) => {
         const th = document.createElement('th')
         th.textContent = h;
+        headerRow.classList.add('sticky-header')
+        headerRow.classList.add('table-wrapper')
         headerRow.appendChild(th);
     })
 
     tableHead.appendChild(headerRow)
-    data.forEach((item) =>{
+    data.results.forEach((item) =>{
         const row = document.createElement('tr');
+        Object.values(item).forEach(value => {
+            const cell = document.createElement('td');
+            cell.textContent = value;    
+            row.appendChild(cell);
+        });
 
-        const cell = document.createElement('td');
-        cell.textContent = item;
-
-        row.appendChild(cell);
         tableBody.appendChild(row);
     }
     )

@@ -38,16 +38,31 @@ body {
   button:hover {
     background-color: #45a049;
   }
-
+  .table_wrapper{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
   table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    overflow: scroll;
+    overflow: auto; 
   }
   th, td {
     padding: 10px;
     text-align: left;
     border: 1px solid #ddd;
+    word-break: break-word;
+    white-space: pre-line;
   }
   th {
     background-color: #f4f4f4;
+  }
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 10; /* Ensure it stays above other content */
+    /* Add any other necessary styles */
   }

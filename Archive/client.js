@@ -1,34 +1,13 @@
+require('dotenv').config();
+const { Client } = require('@notionhq/client');
+const { get } = require('http');
 
-const express = require("express");
-
-const dotenv = require('dotenv');
-dotenv.config();
-const path = require("path");
-
-const { Client } = require("@notionhq/client");
+// Initialize Notion client
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
-const bodyParser = require('body-parser');
+// Function to get database entries
 
 
-app = express();
-app.set('view engine', 'ejs');
-
-const port = process.env.PORT || 3000;
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-
-app.get('/button', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'button.html'));
-});
-
-// GET table data
 async function getTable() {
   const results = [];
 
@@ -42,7 +21,7 @@ async function getTable() {
     // Step 2: Query the database
     const dataresponse = await notion.databases.query({
       database_id: databaseId,
-      page_size: 30, // or more if you want
+      page_size: 2, // or more if you want
     });
     // Step 3: Process results
     dataresponse.results.forEach((page) => {
@@ -158,42 +137,69 @@ async function getTable() {
     console.error("Error fetching database:", error);
   }
 }
-app.get('/api/data', async (req, res) => {
-  try{
-    const data = await getTable();
-    res.json(data)
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to fetch data' });
-  }
+
+
+getTable().then( table => {
+  console.log(JSON.stringify(table["results"][1],null,2));
 });
 
-// GET headers
 
-async function getHeaders() {
+
+
+
+
+async function tableData(headers) {
   try {
-      const databaseId = process.env.NOTION_DATABASE_ID;
-      const response = await notion.databases.retrieve({ database_id: databaseId });
+    const response = await notion.databases.query({
+      database_id: process.env.NOTION_DATABASE_ID, 
+      page_size: 1,
+    });
+    
+    
 
-      headings = Object.keys(response.properties)
-
-      // console.log(headings);      
-      return headings;
   } catch (error) {
     console.error("Error fetching database:", error);
   }
 }
 
-app.get('/api/headers', async (req, res) => {
-  try{
-    const data = await getHeaders();
-    res.json(data)
+async function getDatabase() {
+  try {
+    const response = await notion.databases.query({
+      database_id: process.env.NOTION_DATABASE_ID, page_size: 1,
+    });
+    console.log("Database entries:");
+    response.results.forEach((page) => {
+      const orderStatus = page.properties["Fulfillment Status"]?.select?.name || "No Status";
+      const deliverySlot = page.properties["Fulfillment Method"]?.select?.name || "No Slot";
+      const customerName = page.properties["Order Notes"]?.rich_text[0]?.text.content || "No Name"
+      console.log(JSON.stringify(page, null, 2))
+      // console.log(orderStatus)
+      // console.log(deliverySlot)
+      // console.log(customerName)
+      console.log('\n'); // Adjust this to print the data you want
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to fetch data' });
+    console.error("Error fetching database:", error);
   }
-});
+}
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-});
+// getDatabase();
+
+// async function getHeaders() {
+//   try {
+//       const databaseId = process.env.NOTION_DATABASE_ID;
+//       const response = await notion.databases.retrieve({ database_id: databaseId });
+
+//       headings = Object.keys(response.properties)
+
+//       console.log(headings);      
+//       // return headings;
+//   } catch (error) {
+//     console.error("Error fetching database:", error);
+//   }
+//   headings.forEach((h) => {
+//     const tag = `h$`
+//   })
+// }
+
+// getHeaders();
