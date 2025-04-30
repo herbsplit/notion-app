@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Client } = require('@notionhq/client');
+const { get } = require('http');
 
 // Initialize Notion client
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
@@ -7,7 +8,7 @@ const notion = new Client({ auth: process.env.NOTION_API_KEY });
 // Function to get database entries
 
 
-async function getHeaders() {
+async function getTable() {
   const results = [];
 
   try {
@@ -130,8 +131,7 @@ async function getHeaders() {
       // console.log(result)
       
     });
-    console.log(headings);
-    console.log(results);
+    
     return { headings, results };
   } catch (error) {
     console.error("Error fetching database:", error);
@@ -139,7 +139,13 @@ async function getHeaders() {
 }
 
 
-getHeaders();
+getTable().then( table => {
+  console.log(JSON.stringify(table["results"][1],null,2));
+});
+
+
+
+
 
 
 async function tableData(headers) {

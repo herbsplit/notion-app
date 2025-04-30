@@ -51,3 +51,9 @@ body {
   th {
     background-color: #f4f4f4;
   }
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 10; /* Ensure it stays above other content */
+    /* Add any other necessary styles */
+  }
