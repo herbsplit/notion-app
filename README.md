@@ -5,8 +5,7 @@ Using the `localhost:51000/button` URL, you can hit the green button and the API
 It will display a table of the information from the Notion database that is chosen. This `table_id` is stored in the `.env` file.
 
 ## **Setup**
-`npm install \n`
-`cp .env.example .env`
+```npm install \t cp .env.example .env```
 
 ## **Find api key and database id**
 1. API_KEY: Look at [this link](https://developers.notion.com/docs/create-a-notion-integration#getting-started)
