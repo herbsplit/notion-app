@@ -2,4 +2,4 @@ Archive/*
 notes.md
 .env
 .package-lock.json
-./node_modules
+node_modules

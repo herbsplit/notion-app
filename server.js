@@ -28,7 +28,7 @@ app.get('/button', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'button.html'));
 });
 
-// Function to get database entries
+// GET table data
 async function getDatabase() {
   try {
     const response = await notion.databases.query({
