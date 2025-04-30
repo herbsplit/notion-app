@@ -18,6 +18,7 @@ try {
         const th = document.createElement('th')
         th.textContent = h;
         headerRow.classList.add('sticky-header')
+        headerRow.classList.add('table-wrapper')
         headerRow.appendChild(th);
     })
 
