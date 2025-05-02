@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>step by step</title>
+    <title>Landing Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>poop on my butt!</h1>
+    <h1>I know this is annoying but:</h1>
+    <a id="link-button" href="">This takes you to the button</a>
 
-    <form id="form" action="/" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email:</label>
-        <input type="text" name="email" id="email" required>
-
-        <button type="submit">Submit</button>
-    </form>
-
-    <div id="entries"></div>
-
-    <script> src="index.js"</script>
+    <script>
+        window.onload = function() {
+            const link = document.getElementById('link-button');
+            const port = window.location.port;
+            link.href = `http://localhost:${port}/button`;
+        };
+    </script>
 </body>
 </html>
