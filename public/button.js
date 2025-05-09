@@ -5,8 +5,6 @@ dbChange.addEventListener('change', async() => {
     const res = await fetch('/api/data');
     const data = await res.json()
 
-    // console.log(data.headings);
-
     const headingSelect = document.getElementById('header-select');
 
     headingSelect.innerHTML = '';
@@ -21,20 +19,16 @@ dbChange.addEventListener('change', async() => {
     }
 });
 
-function getHeadingSelect() {
-    const headerSelect = document.getElementById("header-select");
-    const headers = Array.from(headerSelect.selectedOptions).map(option => option.value);
-    console.log(headers);
-  }
-
 // fetch from API data and table genereation
 document.getElementById('dbButton').addEventListener('click', async () => {
 try {
+    // get selected headers
+    const headerSelect = document.getElementById("header-select");
+    const headers = Array.from(headerSelect.selectedOptions).map(option => option.value);
+    console.log(headers);
+    //fetch data
     const res = await fetch('/api/data');
     const data = await res.json()
-
-
-    // console.log(data.results);
 
     const tableBody = document.getElementById('tableBody');
     const tableHead = document.getElementById('tableHead')
@@ -44,26 +38,26 @@ try {
 
     const headerRow = document.createElement('tr');
 
-    data.headings.forEach((h) => {
+    headers.forEach((h) => {
         const th = document.createElement('th')
         th.textContent = h;
         headerRow.classList.add('sticky-header')
         headerRow.classList.add('table-wrapper')
         headerRow.appendChild(th);
     })
-
+    //generate table based on selected headers
     tableHead.appendChild(headerRow)
-    data.results.forEach((item) =>{
+    data.results.forEach((item) => {
         const row = document.createElement('tr');
-        Object.values(item).forEach(value => {
+    
+        headers.forEach(key => {
             const cell = document.createElement('td');
-            cell.textContent = value;    
+            cell.textContent = item[key] ?? '';  // Use optional chaining in case key doesn't exist
             row.appendChild(cell);
         });
-
+    
         tableBody.appendChild(row);
-    }
-    )
+    });
 } catch (error) {
     console.error('Fetch error:', error);
     document.getElementById('dbOutput').textContent = 'Error loading data.';
