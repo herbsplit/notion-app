@@ -66,3 +66,21 @@ body {
     z-index: 10; /* Ensure it stays above other content */
     /* Add any other necessary styles */
   }
+
+#popupForm {
+  display: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background-color: bisque;
+  padding: 20px;
+  border: 1px solid black;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+}

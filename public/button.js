@@ -1,3 +1,21 @@
+// document.getElementById('db-select').onload(=>)
+
+document.addEventListener("DOMContentLoaded", function () {
+const button = document.getElementById("db-add-submit");
+    button.addEventListener("click", function () {
+        const form = document.forms['add-db'];
+        const name = form['name'].value;
+        const url = form['url'].value;
+    
+        console.log("Name:", name);
+        console.log("URL:", url);
+    });
+});
+
+
+
+
+// fetch from API data and table genereation
 document.getElementById('dbButton').addEventListener('click', async () => {
 try {
     const res = await fetch('/api/data');
