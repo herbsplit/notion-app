@@ -1,19 +1,31 @@
-// document.getElementById('db-select').onload(=>)
+// display headers of database in multiselect
+const dbChange = document.getElementById('db-select')
+dbChange.addEventListener('change', async() => {
+    try {
+    const res = await fetch('/api/data');
+    const data = await res.json()
 
-document.addEventListener("DOMContentLoaded", function () {
-const button = document.getElementById("db-add-submit");
-    button.addEventListener("click", function () {
-        const form = document.forms['add-db'];
-        const name = form['name'].value;
-        const url = form['url'].value;
-    
-        console.log("Name:", name);
-        console.log("URL:", url);
-    });
+    // console.log(data.headings);
+
+    const headingSelect = document.getElementById('header-select');
+
+    headingSelect.innerHTML = '';
+
+    data.headings.forEach((h) => {
+        const opt = document.createElement('option')
+        opt.textContent = h;
+        headingSelect.appendChild(opt);
+    })
+    } catch (error) { 
+        console.error('Fetch error:', error);
+    }
 });
 
-
-
+function getHeadingSelect() {
+    const headerSelect = document.getElementById("header-select");
+    const headers = Array.from(headerSelect.selectedOptions).map(option => option.value);
+    console.log(headers);
+  }
 
 // fetch from API data and table genereation
 document.getElementById('dbButton').addEventListener('click', async () => {
@@ -22,7 +34,7 @@ try {
     const data = await res.json()
 
 
-    console.log(data.results);
+    // console.log(data.results);
 
     const tableBody = document.getElementById('tableBody');
     const tableHead = document.getElementById('tableHead')

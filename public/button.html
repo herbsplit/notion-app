@@ -5,15 +5,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <Select id="db-select">choose database</Select>
-  <!--fill in options here-->
+  <Select id="db-select">
+    <option value="comm">comm1</option>
+    <option value="comm2">comm2</option>
+  </Select><br>
+  <select name="header-select" id="header-select" multiple size="5">
+    <!--options fill in here-->
+  </select><br>
+  
+  <!-- </div>fill in options here -->
 
-    <form id="add-db">
+    <!-- <form id="add-db">
       <label>Database Name: <input type="text" name="name" required></label><br>
       <label>URL: <input type="url" name="url" required></label><br>
       <button id="db-add-submit">Add Database</button>
     </form>
-  </div>
+  </div> -->
 
   <button id="dbButton">Get DB info</button>
   <!-- <pre id="dbOutput"></pre> -->
