@@ -5,20 +5,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <label for="db-select">Select Database:</label>
+  <Select id="db-select">
+    <option value="Soil Orders">Soil Orders</option>
+    <option value="Soil Items">Soil Items</option>
+    <option value="Events">Events</option>
+  </Select><br>
+  <label for="header-select">Select Columns:</label>
+  <select name="header-select" id="header-select" multiple size="5">
+    <!--options fill in here-->
+  </select><br>
 
-    <button id="dbButton">Get DB info</button>
-    <!-- <pre id="dbOutput"></pre> -->
-    <table id="dataTable">
-        <thead id="tableHead">
-          <!-- headers will be inserted here-->
-        </thead>
-        <tbody id="tableBody">
-          <!-- Data will be inserted here -->
-        </tbody>
-      </table>
+  <!-- </div>fill in options here -->
+
+    <!-- <form id="add-db">
+      <label>Database Name: <input type="text" name="name" required></label><br>
+      <label>URL: <input type="url" name="url" required></label><br>
+      <button id="db-add-submit">Add Database</button>
+    </form>
+  </div> -->
+
+  <button id="dbButton">Get DB info</button>
+  <!-- <pre id="dbOutput"></pre> -->
+  <table id="dataTable">
+      <thead id="tableHead">
+        <!-- headers will be inserted here-->
+      </thead>
+      <tbody id="tableBody">
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
 
 
-<script src="script.js" type="module"></script>
+<script src="button.js" type="module"></script>
 
 
 
