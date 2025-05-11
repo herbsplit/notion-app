@@ -15,25 +15,28 @@ app = express();
 app.set('view engine', 'ejs');
 
 const port = process.env.PORT || 3000;
-app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-
 app.get('/button', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'button.html'));
 });
-
+const envNames = {
+  "Events":  "EVENTS",
+  "Soil Orders": "SOIL_ORDERS",
+  "Soil Items": "SOIL_ITEMS"
+}
 // GET table data
-async function getTable() {
+async function getTable(id) {
   const results = [];
-
-  try {
-    const databaseId = process.env.NOTION_DATABASE_ID;
+try {
+    const databaseId = process.env[id];
 
     // Step 1: Get headings
     const headresponse = await notion.databases.retrieve({ database_id: databaseId });
@@ -158,9 +161,21 @@ async function getTable() {
     console.error("Error fetching database:", error);
   }
 }
-app.get('/api/data', async (req, res) => {
+app.post('/api/data', async (req, res) => {
   try{
-    const data = await getTable();
+    dbID = req.body.id
+    if( dbID in envNames) {
+      id = envNames[dbID]
+      const data = await getTable(id);
+      res.json(data)}
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+app.post('/api/id', async (req, res) => {
+  try{
+    console.log(req);
     res.json(data)
   } catch (error) {
     console.error(error);
