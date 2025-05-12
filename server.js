@@ -4,6 +4,7 @@ const express = require("express");
 const dotenv = require('dotenv');
 dotenv.config();
 const path = require("path");
+const envNames = require('./envNames')
 
 const { Client } = require("@notionhq/client");
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
@@ -14,11 +15,11 @@ const bodyParser = require('body-parser');
 app = express();
 app.set('view engine', 'ejs');
 
-const port = process.env.PORT || 3000;
-
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -27,11 +28,7 @@ app.get('/', (req, res) => {
 app.get('/button', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'button.html'));
 });
-const envNames = {
-  "Events":  "EVENTS",
-  "Soil Orders": "SOIL_ORDERS",
-  "Soil Items": "SOIL_ITEMS"
-}
+
 // GET table data
 async function getTable(id) {
   const results = [];
@@ -167,42 +164,7 @@ app.post('/api/data', async (req, res) => {
     if( dbID in envNames) {
       id = envNames[dbID]
       const data = await getTable(id);
-      res.json(data)}
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to fetch data' });
-  }
-});
-app.post('/api/id', async (req, res) => {
-  try{
-    console.log(req);
-    res.json(data)
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to fetch data' });
-  }
-});
-
-// GET headers
-
-async function getHeaders() {
-  try {
-      const databaseId = process.env.NOTION_DATABASE_ID;
-      const response = await notion.databases.retrieve({ database_id: databaseId });
-
-      headings = Object.keys(response.properties)
-
-      // console.log(headings);      
-      return headings;
-  } catch (error) {
-    console.error("Error fetching database:", error);
-  }
-}
-
-app.get('/api/headers', async (req, res) => {
-  try{
-    const data = await getHeaders();
-    res.json(data)
+      res.json(data).sort()}
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to fetch data' });

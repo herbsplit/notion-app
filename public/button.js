@@ -12,11 +12,11 @@ dbChange.addEventListener('change', async() => {
       })
       .then(response => response.json()) // Parse the JSON response
       .then(data => {
-        console.log('Success:', data);
         const headingSelect = document.getElementById('header-select');
 
         headingSelect.innerHTML = '';
 
+        data.headings.sort()
         data.headings.forEach((h) => {
             const opt = document.createElement('option')
             opt.textContent = h;
@@ -30,7 +30,7 @@ dbChange.addEventListener('change', async() => {
  
 });
 
-// fetch from API data and table genereation
+// fetch from API data and table genereation based on heading selections
 document.getElementById('dbButton').addEventListener('click', async () => {
 try {
     // get selected headers
