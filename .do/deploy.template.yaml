@@ -1,0 +1,8 @@
+spec:
+  name: dockerfile
+  services:
+  - dockerfile_path: Dockerfile
+    git:
+      branch: main
+      repo_clone_url: https://github.com/Forest-City-Tech-Coop/cofa-house-buying-club.git
+    name: dockerfile

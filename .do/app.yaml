@@ -1,0 +1,19 @@
+name: notion-app
+services:
+- name: notion-app
+  envs:
+  - key: NOTION_API_KEY
+    value: ${NOTION_API_KEY}
+    type: SECRET
+  - key: EVENTS
+    value: ${EVENTS}
+    type: SECRET
+  - key: SOIL_ORDERS
+    value: ${SOIL_ORDERS}
+    type: SECRET
+  - key: SOIL_ITEMS
+    value: ${SOIL_ITEMS}
+    type: SECRET
+  github:
+    branch: main
+    repo: herbsplit/notion-app
