@@ -36,6 +36,7 @@ try {
     const databaseId = process.env[id];
 
     // Step 1: Get headings
+    console.log(databaseId)
     const headresponse = await notion.databases.retrieve({ database_id: databaseId });
     const headings = Object.keys(headresponse.properties);
 
