@@ -4,5 +4,5 @@ spec:
   - dockerfile_path: Dockerfile
     git:
       branch: main
-      repo_clone_url: https://github.com/Forest-City-Tech-Coop/cofa-house-buying-club.git
+      repo_clone_url: https://github.com/herbsplit/notion-app.git
     name: dockerfile
