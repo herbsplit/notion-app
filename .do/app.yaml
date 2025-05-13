@@ -17,3 +17,4 @@ services:
   github:
     branch: main
     repo: herbsplit/notion-app
+    
