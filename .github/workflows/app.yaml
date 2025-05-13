@@ -17,9 +17,9 @@ jobs:
       - name: Deploy the app
         uses: digitalocean/app_action/deploy@v2
         env:
-          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY}}
-          EVENTS: ${{ secrets.EVENTS}}
-          SOIL_ORDERS: ${{ secrets.SOIL_ORDERS}}
-          SOIL_ITEMS: ${{ secrets.SOIL_ITEMS}}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          EVENTS: ${{ secrets.EVENTS }}
+          SOIL_ORDERS: ${{ secrets.SOIL_ORDERS }}
+          SOIL_ITEMS: ${{ secrets.SOIL_ITEMS }}
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESSTOKEN }}
